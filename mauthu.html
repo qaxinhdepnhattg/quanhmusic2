@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinyl Audio Player</title>
+    
+</head>
+<style>
+    
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.vinyl-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.vinyl-record {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.vinyl-record.playing {
+    animation: rotate 10s linear infinite;
+}
+
+.play-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.play-btn::before {
+    content: "▶";
+    color: white;
+    font-size: 20px;
+}
+
+.play-btn.playing::before {
+    content: "⏸";
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+</style>
+<body>
+    <div class="vinyl-container">
+        <img src="https://tse2.mm.bing.net/th?id=OIP.uRVTepCVzVi2NXOEhpsE0AHaHa&pid=Api&P=0&h=180" alt="Vinyl Record" class="vinyl-record">
+        <div class="play-btn"></div>
+    </div>
+    <audio id="myAudio" src="./song/ytapi.org - Chi Pu ANH ƠI Ở LẠI - Official M V (Chuyện Cám Tấm) (치푸).mp3"></audio>
+    
+    
+    <script>
+        const audio = document.getElementById('myAudio');
+const playButton = document.querySelector('.play-btn');
+const vinylRecord = document.querySelector('.vinyl-record');
+
+playButton.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        playButton.classList.add('playing');
+        vinylRecord.classList.add('playing');
+    } else {
+        audio.pause();
+        playButton.classList.remove('playing');
+        vinylRecord.classList.remove('playing');
+    }
+});
+
+audio.addEventListener('ended', () => {
+    playButton.classList.remove('playing');
+    vinylRecord.classList.remove('playing');
+});
+    </script>
+</body>
+
+</html>

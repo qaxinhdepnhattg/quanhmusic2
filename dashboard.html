@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MEOW</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<style>
+    /* dashboard.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+.nav-links a:hover {
+    color: #f5c518;
+}
+
+.auth-buttons button {
+    padding: 8px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #ff4d94;
+    color: #fff;
+    cursor: pointer;
+}
+
+.auth-buttons button:hover {
+    background-color: #e04385;
+}
+
+main {
+    padding: 40px;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    font-size: 16px;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.add-song-btn {
+    padding: 10px 20px;
+    background-color: #ff4d94;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.add-song-btn:hover {
+    background-color: #e04385;
+}
+
+.songs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.song-card {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.song-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.song-card .title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.song-card .artist {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.song-card .actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.song-card .actions button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.song-card .actions .edit-btn {
+    background-color: #f5c518;
+    color: #000;
+}
+
+.song-card .actions .delete-btn {
+    background-color: #ff4d94;
+    color: #fff;
+}
+
+/* Form Modal */
+.form-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-content {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+}
+
+.form-content h3 {
+    margin-bottom: 20px;
+}
+
+.form-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-content label {
+    font-size: 14px;
+}
+
+.form-content input {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+}
+
+.form-content button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-content button[type="submit"] {
+    background-color: #ff4d94;
+    color: #fff;
+}
+
+.form-content button[type="button"] {
+    background-color: #ccc;
+    color: #000;
+}
+</style>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">MEOW</div>
+        <div class="nav-links">
+            <a href="infor.html">INFO</a>
+            <a href="in.html">HOME</a>
+            <a href="song.html">MUSIC</a>
+            <a href="#">EVENTS</a>
+            <a href="#">NEWS</a>
+        </div>
+        <div class="auth-buttons">
+            <button onclick="chuyen_trangDangki()">Sign up</button>
+            <button onclick="chuyen_trangDangnhap()">Login</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search...">
+        </div>
+
+        <!-- Section Title -->
+        <h2>QUẢN LÝ BÀI HÁT</h2>
+
+        <!-- Button to Add New Song -->
+        <button class="add-song-btn" onclick="openAddSongForm()">Thêm Bài Hát</button>
+
+        <!-- Songs Grid -->
+        <div id="songsGrid" class="songs-grid"></div>
+
+        <!-- Form to Add/Edit Song (Hidden by Default) -->
+        <div id="songForm" class="form-modal" style="display: none;">
+            <div class="form-content">
+                <h3 id="formTitle">Thêm Bài Hát</h3>
+                <form id="songFormData">
+                    <input type="hidden" id="songId">
+                    <label for="title">Tiêu Đề:</label>
+                    <input type="text" id="title" required>
+                    
+                    <label for="artist">Nghệ Sĩ:</label>
+                    <input type="text" id="artist" required>
+                    
+                    <label for="audio">Link Âm Thanh:</label>
+                    <input type="text" id="audio" required>
+                    
+                    <label for="image">Link Hình Ảnh:</label>
+                    <input type="text" id="image" required>
+                    
+                    <button type="submit">Lưu</button>
+                    <button type="button" onclick="closeForm()">Hủy</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script >
+        // dashboard.js
+
+// Navigation functions
+function chuyen_trangHome() {
+    window.location.assign("in.html");
+}
+
+function chuyen_trangInfor() {
+    window.location.assign("infor.html");
+}
+
+function chuyen_trangNhac() {
+    window.location.assign("song.html");
+}
+
+function chuyen_trangDangki() {
+    window.location.assign("signup.html");
+}
+
+function chuyen_trangDangnhap() {
+    window.location.assign("login.html");
+}
+
+// Get elements
+const songsGrid = document.getElementById('songsGrid');
+const songForm = document.getElementById('songForm');
+const songFormData = document.getElementById('songFormData');
+const formTitle = document.getElementById('formTitle');
+const songIdInput = document.getElementById('songId');
+const titleInput = document.getElementById('title');
+const artistInput = document.getElementById('artist');
+const audioInput = document.getElementById('audio');
+const imageInput = document.getElementById('image');
+const searchInput = document.getElementById('searchInput');
+
+// API URL (replace with your actual API endpoint)
+const API_URL = 'https://67f7b1152466325443ea4d4b.mockapi.io/songs';
+
+// Fetch songs from API
+function fetchSongs() {
+    return fetch(API_URL)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Could not fetch songs');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.log('Error fetching songs:', error);
+            return [];
+        });
+}
+
+// Display songs in the grid
+function displaySongs(songs) {
+    songsGrid.innerHTML = ''; // Clear the grid
+
+    songs.forEach(song => {
+        const card = document.createElement('div');
+        card.className = 'song-card';
+
+        // Add song image
+        const img = document.createElement('img');
+        img.src = song.image;
+        img.alt = song.title;
+        card.appendChild(img);
+
+        // Add song title
+        const title = document.createElement('div');
+        title.className = 'title';
+        title.textContent = song.title;
+        card.appendChild(title);
+
+        // Add artist name
+        const artist = document.createElement('div');
+        artist.className = 'artist';
+        artist.textContent = song.artist;
+        card.appendChild(artist);
+
+        // Add action buttons (Edit and Delete)
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit-btn';
+        editBtn.textContent = 'Sửa';
+        editBtn.onclick = () => openEditSongForm(song);
+        actions.appendChild(editBtn);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.textContent = 'Xóa';
+        deleteBtn.onclick = () => deleteSong(song.id);
+        actions.appendChild(deleteBtn);
+
+        card.appendChild(actions);
+        songsGrid.appendChild(card);
+    });
+}
+
+// Open form to add a new song
+function openAddSongForm() {
+    formTitle.textContent = 'Thêm Bài Hát';
+    songIdInput.value = '';
+    titleInput.value = '';
+    artistInput.value = '';
+    audioInput.value = '';
+    imageInput.value = '';
+    songForm.style.display = 'flex';
+}
+
+// Open form to edit an existing song
+function openEditSongForm(song) {
+    formTitle.textContent = 'Sửa Bài Hát';
+    songIdInput.value = song.id;
+    titleInput.value = song.title;
+    artistInput.value = song.artist;
+    audioInput.value = song.audio;
+    imageInput.value = song.image;
+    songForm.style.display = 'flex';
+}
+
+// Close the form
+function closeForm() {
+    songForm.style.display = 'none';
+}
+
+// Save a song (add or edit)
+songFormData.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const songData = {
+        id: songIdInput.value || Date.now(), // Use existing ID or generate a new one
+        title: titleInput.value,
+        artist: artistInput.value,
+        audio: audioInput.value,
+        image: imageInput.value
+    };
+
+    if (songIdInput.value) {
+        // Update existing song (PUT request)
+        fetch(`${API_URL}/${songData.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(songData)
+        })
+        .then(response => response.json())
+        .then(() => {
+            closeForm();
+            loadSongs();
+        })
+        .catch(error => console.log('Error updating song:', error));
+    } else {
+        // Add new song (POST request)
+        fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(songData)
+        })
+        .then(response => response.json())
+        .then(() => {
+            closeForm();
+            loadSongs();
+        })
+        .catch(error => console.log('Error adding song:', error));
+    }
+});
+
+// Delete a song
+function deleteSong(id) {
+    if (confirm('Bạn có chắc muốn xóa bài hát này?')) {
+        fetch(`${API_URL}/${id}`, {
+            method: 'DELETE'
+        })
+        .then(() => loadSongs())
+        .catch(error => console.log('Error deleting song:', error));
+    }
+}
+
+// Search songs
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    fetchSongs().then(songs => {
+        const filteredSongs = songs.filter(song =>
+            song.title.toLowerCase().includes(searchTerm) ||
+            song.artist.toLowerCase().includes(searchTerm)
+        );
+        displaySongs(filteredSongs);
+    });
+});
+
+// Load songs when the page loads
+function loadSongs() {
+    fetchSongs().then(songs => {
+        if (songs.length > 0) {
+            displaySongs(songs);
+        } else {
+            songsGrid.innerHTML = '<p>Không tìm thấy bài hát.</p>';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', loadSongs);
+    </script>
+</body>
+</html>

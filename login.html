@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: url('https://i.pinimg.com/736x/b5/f7/f4/b5f7f4690d295c9b594dd7015baf1127.jpg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        header {
+            width: 100%;
+            height: 150px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .search input {
+            width:100% ;
+            margin-left: 20px;
+            padding: 10px;
+            padding-right: 40px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            font-size: 16px;
+            background-color: #fff;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .search button {
+            /* position: absolute; */
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            background-color:rgba(0, 0, 0, 0.8) ;
+            border: none;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search button i {
+            color: #fff;
+            font-size: 20px;
+        }
+        
+
+.profile svg{
+    margin-left: 20px;
+    width: 40px;
+}
+.profile {
+    display: flex;
+    
+    align-items: center;
+    width: 200px;
+    height: 40px;
+   
+   
+}
+        
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .login-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            width: 350px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .close-btn {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .input-box {
+            position: relative;
+            margin: 10px 0;
+        }
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid white;
+            background: transparent;
+            color: white;
+            font-size: 16px;
+        }
+        .input-box .icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+        }
+        .options {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: white;
+        }
+        .options a {
+            color: white;
+            text-decoration: none;
+        }
+        .login-submit {
+            background: #ff3f6c;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
+        p {
+            margin-top: 10px;
+            color: white;
+        }
+        p a {
+            color: lightblue;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="search" style="display: flex;"> 
+    
+            <div class="logo">
+                <h1 onclick="chuyen_trangHome()" style="color: #fff;">MEOW</h1>
+             </div>
+            <input type="text" class="searchBox" placeholder="Search...">
+            <button>
+                <i>🔍</i>
+            </button></div>
+                <div class="profile">
+                    <svg height="200px" width="200px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#ffffff;} </style> <g> <path class="st0" d="M461.814,197.514c-2.999-11.335-14.624-18.093-25.958-15.094c-1.866,0.553-13.477,3.649-26.042,14.341 c-6.234,5.349-12.633,12.751-17.361,22.454c-4.748,9.69-7.685,21.577-7.657,35.033c0.013,16.345,4.133,34.895,13.442,56.257 c6.282,14.403,9.144,29.697,9.144,44.846c0.062,25.627-8.438,50.756-21.121,68.283c-6.296,8.777-13.546,15.606-20.816,20.022 c-2.986,1.81-5.943,3.131-8.888,4.181l0.989-5.854c-0.055-17.03-4.05-34.84-13.021-50.528 c-28.356-49.643-66.223-134.741-66.223-134.741l-1.527-4.879c29.47-7.796,58.579-23.408,73.148-54.985 c38.931-84.344-41.08-142.73-41.08-142.73s-25.958-56.222-38.924-54.06c-12.978,2.164-41.094,38.931-41.094,38.931h-23.788h-23.788 c0,0-28.108-36.767-41.08-38.931c-12.979-2.163-38.924,54.06-38.924,54.06s-80.018,58.386-41.087,142.73 c13.822,29.953,40.741,45.572,68.634,53.748l-2.951,9.662c0,0-31.908,81.552-60.279,131.195C37.198,441.092,58.478,512,97.477,512 c29.47,0,79.14,0,101.692,0c7.292,0,11.763,0,11.763,0c22.544,0,72.222,0,101.691,0c12.654,0,23.38-7.547,31.204-19.324 c15.826-0.013,30.81-4.872,43.707-12.758c19.455-11.915,34.708-30.32,45.434-51.896c10.685-21.618,16.856-46.636,16.878-72.672 c0-20.484-3.885-41.619-12.682-61.813c-7.561-17.34-9.918-30.216-9.904-39.29c0.028-7.526,1.5-12.544,3.359-16.414 c1.417-2.889,3.124-5.17,4.983-7.091c2.771-2.868,5.964-4.879,8.349-6.054c1.182-0.595,2.135-0.968,2.674-1.162l0.449-0.152 l-0.007-0.028C458.179,220.189,464.779,208.724,461.814,197.514z"></path> </g> </g></svg>
+                    <svg height="200px" width="200px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#ffffff;} </style> <g> <path class="st0" d="M504.302,195.59c-10.618-6.362-29.71-43.514-33.959-47.755c-4.249-4.256-28.662-13.81-28.662-13.81 l-13.795-43.514c-26.542,3.185-42.449,45.634-43.513,48.819c0,0-2.661,73.764-120.47,45.11 c-84.437-20.54-135.22-40.407-177.872-0.36c-2.668-4.578-4.491-9.234-5.822-14.257c-2.378-9.062-2.918-19.46-2.91-31.308 c0-5.806,0.109-11.924,0.117-18.34c-0.008-13.436-0.493-28.248-4.046-44.015C69.85,60.386,63.136,43.743,51.344,27.162 c-5.086-7.168-15.024-8.858-22.199-3.764c-7.167,5.094-8.858,15.031-3.764,22.199c9.304,13.145,14.162,25.368,16.932,37.551 c2.739,12.167,3.271,24.397,3.264,37.027c0,6.024-0.118,12.136-0.118,18.34c0.016,12.646,0.438,25.799,3.928,39.32 c2.746,10.735,7.722,21.58,15.508,31.706C31.93,261.458,50.037,316.584,50.037,316.584l-34.093,54.241 c-0.618,0.978-1.033,2.066-1.244,3.192L0.146,454.073c-0.641,3.521,0.862,7.08,3.819,9.084l40.979,27.763 c0.876,0.602,1.964,0.775,2.981,0.493c1.026-0.274,1.863-0.994,2.308-1.949l8.326-17.825c0.618-1.338,0.368-2.918-0.634-3.998 l-10.728-11.448c-2.182-2.324-2.973-5.634-2.081-8.701l17.84-61.033c0.579-1.948,1.784-3.646,3.435-4.82l23.983-17.058 c3.255-2.332,7.66-2.222,10.806,0.251c3.146,2.472,4.288,6.721,2.809,10.438L93.41,401.858c-1.22,3.051-0.681,6.525,1.401,9.06 l60.298,73.365h45.218c1.996,0,3.616-1.62,3.616-3.607v-22.504c0-1.996-1.62-3.615-3.616-3.615h-14.303 c-3.342,0-6.409-1.854-7.982-4.804l-24.484-41.049c-1.643-3.106-1.33-6.87,0.783-9.663l21.948-28.999 c1.706-2.245,4.367-3.575,7.192-3.575h61.197c2.872,0,5.579,1.376,7.277,3.701c1.698,2.324,2.191,5.313,1.33,8.059l-19.726,62.16 c-0.626,1.957-0.564,4.077,0.18,5.994l12.653,32.598h39.272v-8.49l-6.494-20.415c-0.61-1.909-0.563-3.967,0.133-5.852 l26.471-71.847c1.315-3.553,4.694-5.908,8.474-5.908h27.011c2.449,0,4.796,1.002,6.502,2.777l74.813,103.365c0,0,38.208,0,50.947,0 c12.738,0,7.809-25.414-4.241-26.542c-22.826-2.12-52.004-65.798-64.742-88.09c-12.739-22.285,24.664-91.299,53.067-94.453 c28.654-3.185,43.514-14.867,47.763-30.79C513.856,223.187,514.92,201.959,504.302,195.59z"></path> </g> </g></svg>
+                </div>
+            
+    </header>
+    <div class="container">
+        <div class="login-box">
+            <button class="close-btn">&times;</button>
+            <h2>Login</h2>
+            <form>
+                <div class="input-box">
+                    <input  type="email" placeholder="Email" required>
+                    <span class="icon">&#9993;</span>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Password" required>
+                    <span class="icon">&#128274;</span>
+                </div>
+                <div class="options">
+                    <label><input type="checkbox"> Remember me</label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" class="login-submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#">Register</a></p>
+        </div>
+    </div>
+    <script>
+        function chuyen_trangHome(){
+	window.location.assign("in.html")
+}
+let login = document.getElementById("login");
+login.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    let users = JSON.parse(localStorage.users);
+
+    let email = document.getElementById("email");
+    let pw = document.getElementById("password");
+
+    let check = users.map(index => index.email == email.value.trim() && index.pw == pw.value.trim());
+
+    if (check[0] == true) {
+        window.location.href ="sanpham.html";
+    }
+    else {
+        alert("Vui lòng nhập lại")
+    }
+})
+    </script>
+</body>
+</html>

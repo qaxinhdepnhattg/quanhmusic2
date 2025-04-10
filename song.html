@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <title>Play Song</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+    body {
+        background: #1a1a1a;
+        color: white;
+    }
+    /* Header */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 50px;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background: url('https://i.pinimg.com/736x/61/ea/66/61ea66ea488792a1b6a0afc4349b9154.jpg') no-repeat center center/cover;
+        height: 150px;
+        color: white;
+    }
+    .navbar::before {
+        content: "";
+        position: absolute;
+        padding: 20px 50px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 160px;
+        background: rgba(0, 0, 0, 0.6);
+    }
+    .navbar * {
+        position: relative;
+        z-index: 2;
+    }
+    .logo {
+        font-size: 30px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .logo img {
+        width: 40px;
+        margin-right: 10px;
+    }
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+    }
+    .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-size: larger;
+        font-weight: bold;
+    }
+    .li {
+        align-items: center;
+        padding: 10px 15px;
+    }
+    .li:hover {
+        height: fit-content;
+        background: #ff3f6c;
+        border-radius: 20px;
+    }
+    .hero-section {
+        margin-top: 100px;
+    }
+    .hero-section h1 {
+        font-size: 50px;
+        font-weight: 600;
+    }
+    .hero-section p {
+        font-size: 18px;
+        max-width: 600px;
+        margin: 10px auto;
+        opacity: 0.8;
+    }
+    .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 24px;
+        background: #ff3f6c;
+        color: white;
+        font-size: 16px;
+        text-decoration: none;
+        border-radius: 30px;
+    }
+    /* Main Container */
+    .container {
+        padding: 30px;
+    }
+    /* Featured Album */
+    .featured {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .album-cover {
+        width: 250px;
+        height: 250px;
+        background: gray;
+        border-radius: 15px;
+        position: relative;
+    }
+    .album-cover img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+
+
+    
+    .play-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Smooth transition for when animation starts/stops */
+}
+
+/* Add this class when the song is playing */
+.play-btn.playing {
+    animation: rotate 2s linear infinite;
+}
+
+/* Define the rotation animation */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+
+    .album-info h2 {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .album-info p {
+        color: #bbb;
+    }
+    /* Playlist */
+    .playlist {
+        margin-top: 30px;
+    }
+    .playlist-item {
+        background: #292929;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .playlist-item h3 {
+        font-size: 16px;
+    }
+    .playlist-item audio {
+        width: 100%;
+        margin-top: 10px;
+    }
+    /* Footer */
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: #292929;
+        padding: 10px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .footer button {
+        background: #ff4d4d;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+</style>
+<body>
+    <!-- Header -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>MEOW</h1>
+        </div>
+        <ul class="nav-links">
+            <div class="li"><li><a onclick="chuyen_trangInfor()" href="#">Infor</a></li></div>
+            <div class="li"><li><a onclick="chuyen_trangHome()" href="#">Home</a></li></div>
+            <div class="li"><li><a onclick="chuyen_trangNhac()" href="#">Music</a></li></div>
+            <div class="li"><li><a onclick="chuyen_trangEvent()" href="#">Events</a></li></div>
+            <div class="li"><li><a onclick="chuyen_trangEvent()" href="#">News</a></li></div>
+        </ul>
+        <div>
+            <a href="#" class="btn">Sign up</a>
+            <a href="#" class="btn">Login</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Featured Album -->
+        <div class="featured">
+            <div class="album-cover">
+                <img id="albumImage" src="" alt="Album Cover">
+                <div class="play-btn" onclick="togglePlay()">
+                    <svg width="20px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#ffffff;} </style> <g> <path class="st0" d="M481.875,299.344L512,292.219l-4.656-19.641l-24.25,5.734c0-0.328,0.016-0.641,0.016-0.969 c0-38.078-10.531-72.781-28.969-102.359c15.438-53.938-13.438-124.547-13.438-124.547S387.813,73,357.719,100.297 C327.109,91.063,292.578,88.094,256,88.094c-36.766,0-71.484,2.563-102.203,11.781c-30.156-27.109-82.5-49.438-82.5-49.438 S42.406,121.063,57.859,175c-18.422,29.578-28.984,64.281-28.984,102.344c0,0.328,0.031,0.641,0.031,0.969l-24.25-5.734L0,292.219 l30.109,7.125c2.672,23.578,9.672,44.75,20.234,63.422L12.875,377.75l7.484,18.75l41.203-16.484 c39.797,53.141,111.969,81.547,194.438,81.547c82.453,0,154.641-28.406,194.438-81.547l41.203,16.484l7.484-18.75l-37.469-14.984 C472.219,344.094,479.219,322.922,481.875,299.344z"></path> </g> </g></svg>
+                </div>
+            </div>
+            <div class="album-info">
+                <div id="songName"><h2>-----</h2></div>
+                <div id="author"><p>Created by ----</p></div>
+            </div>
+        </div>
+
+        <!-- Playlist -->
+        <div class="playlist">
+            <div class="playlist-item">
+                <div id="song"><h3>----</h3></div>
+                <div id="author"><p>----</p></div>
+                <audio id="songAudio" controls></audio>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Player -->
+    <div class="footer">
+        <p id="nowPlaying">Now Playing: ---</p>
+        <button id="playButton">Play</button>
+    </div>
+
+    <script>
+        function chuyen_trangHome() {
+            window.location.assign("in.html");
+        }
+        function chuyen_trangInfor() {
+            window.location.assign("infor.html");
+        }
+        function chuyen_trangNhac() {
+            window.location.assign("nhac.html");
+        }
+        function chuyen_trangEvent() {
+            window.location.assign("event.html"); // Giả sử có trang event.html
+        }
+        function chuyen_trangDangki(){
+	window.location.assign("signup.html")
+}
+function chuyen_trangDangnhap(){
+	window.location.assign("login.html")
+}
+
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const title = decodeURIComponent(urlParams.get('title') || 'Unknown Title');
+        const artist = decodeURIComponent(urlParams.get('artist') || 'Unknown Artist');
+        const image = decodeURIComponent(urlParams.get('image') || 'https://via.placeholder.com/250');
+        const audioUrl = decodeURIComponent(urlParams.get('audio') || '');
+
+        // Update the page with song details
+        document.getElementById('albumImage').src = image;
+        document.getElementById('songName').innerHTML = `<h2>${title}</h2>`;
+        document.getElementById('author').innerHTML = `<p>Created by ${artist}</p>`;
+        document.getElementById('song').innerHTML = `<h3>${title}</h3>`;
+        document.getElementById('nowPlaying').textContent = `Now Playing: ${title} by ${artist}`;
+
+        // Set up audio element in playlist-item
+        const audioElement = document.getElementById('songAudio');
+        if (audioUrl) {
+            audioElement.src = audioUrl;
+        } else {
+            audioElement.style.display = 'none'; // Ẩn audio nếu không có URL
+        }
+
+        // Play button functionality
+        const playButton = document.getElementById('playButton');
+        let isPlaying = false;
+        playButton.addEventListener('click', () => {
+            if (!audioUrl) {
+                alert('No audio source provided for this song!');
+                return;
+            }
+            if (isPlaying) {
+                audioElement.pause();
+                playButton.textContent = 'Play';
+                isPlaying = false;
+            } else {
+                audioElement.play();
+                playButton.textContent = 'Pause';
+                isPlaying = true;
+            }
+        });
+
+        // Optional: Play button on album cover
+        document.querySelector('.play-btn').addEventListener('click', () => {
+            if (!audioUrl) {
+                alert('No audio source provided for this song!');
+                return;
+            }
+            if (isPlaying) {
+                audioElement.pause();
+                playButton.textContent = 'Play';
+                isPlaying = false;
+            } else {
+                audioElement.play();
+                playButton.textContent = 'Pause';
+                isPlaying = true;
+            }
+        });
+        //
+
+        function togglePlay() {
+    const playButton = document.querySelector('.play-btn');
+    const isPlaying = playButton.classList.contains('playing');
+    
+    if (isPlaying) {
+        
+        playButton.classList.remove('playing');
+        
+    } else {
+        
+        playButton.classList.add('playing');
+        
+    }
+}
+    </script>
+</body>
+</html>
