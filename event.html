@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>ECSTASY - Music Band</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background: #1a1a1a;
+        color: white;
+    }
+
+    /* Header */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 50px;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background: url('https://i.pinimg.com/736x/61/ea/66/61ea66ea488792a1b6a0afc4349b9154.jpg') no-repeat center center/cover;
+        height: 150px;
+        color: white;
+    }
+    .navbar::before {
+        content: "";
+        position: absolute;
+        padding: 20px 50px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 160px;
+        background: rgba(0, 0, 0, 0.6);
+    }
+    .navbar * {
+        position: relative;
+        z-index: 2;
+    }
+    .logo {
+        font-size: 30px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .logo img {
+        width: 40px;
+        margin-right: 10px;
+    }
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+    }
+    .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-size: larger;
+        font-weight: bold;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        height: 100vh;
+        background: url('https://tse1.mm.bing.net/th?id=OIP.qIP02o0HoxeXJ11v8H9GxAHaDC&pid=Api&P=0&h=180') no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+    }
+
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-content h1 {
+        font-size: 60px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .hero-content p {
+        font-size: 18px;
+        max-width: 600px;
+        margin: 0 auto 30px;
+        opacity: 0.8;
+    }
+
+    .hero-content .btn {
+        padding: 12px 24px;
+        background: #ff3f6c;
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        font-size: 16px;
+        transition: background 0.3s ease;
+    }
+
+    .hero-content .btn:hover {
+        background: #e0355e;
+    }
+
+    /* Latest Album Section */
+    .latest-album {
+        padding: 50px 30px;
+        background: #ff3f6c;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .album-cover {
+        width: 100px;
+        height: 100px;
+        background: gray;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .album-cover img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .album-info {
+        flex: 1;
+    }
+
+    .album-info h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .album-info .play-bar {
+        width: 100%;
+        height: 5px;
+        background: #555;
+        border-radius: 5px;
+        position: relative;
+        margin: 10px 0;
+    }
+
+    .album-info .play-bar .progress {
+        width: 50%;
+        height: 100%;
+        background: #fff;
+        border-radius: 5px;
+    }
+
+    .album-info .stats {
+        display: flex;
+        gap: 20px;
+        font-size: 14px;
+        opacity: 0.8;
+    }
+
+    /* About Section */
+    .about-section {
+        padding: 50px 30px;
+        display: flex;
+        align-items: center;
+        gap: 50px;
+    }
+
+    .about-content {
+        flex: 1;
+    }
+
+    .about-content h2 {
+        font-size: 36px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .about-content p {
+        font-size: 16px;
+        line-height: 1.6;
+        opacity: 0.8;
+        margin-bottom: 20px;
+    }
+
+    .about-content .btn {
+        padding: 10px 20px;
+        background: transparent;
+        border: 1px solid #ff3f6c;
+        color: #ff3f6c;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 16px;
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .about-content .btn:hover {
+        background: #ff3f6c;
+        color: white;
+    }
+
+    .about-image {
+        width: 300px;
+        height: 300px;
+        background: gray;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .about-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .about-image::after {
+        content: "♪";
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        font-size: 50px;
+        color: #ff3f6c;
+    }
+
+    /* Event List Section */
+    .event-list {
+        padding: 50px 30px;
+    }
+
+    .event-list h2 {
+        font-size: 36px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .events {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .event-card {
+        width: 300px;
+        background: #292929;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .event-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .event-card .date {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #ff3f6c;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .event-card h3 {
+        font-size: 18px;
+        font-weight: 600;
+        padding: 15px;
+    }
+
+    .event-card p {
+        font-size: 14px;
+        padding: 0 15px 15px;
+        opacity: 0.8;
+    }
+
+    /* Music Section */
+    .music-section {
+        padding: 50px 30px;
+        text-align: center;
+    }
+
+    .music-section h2 {
+        font-size: 36px;
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
+
+    .genres {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .genre-card {
+        width: 200px;
+        text-align: center;
+    }
+
+    .genre-card img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    .genre-card h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .genre-card p {
+        font-size: 14px;
+        opacity: 0.8;
+    }
+
+    .music-section .btn {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 12px 24px;
+        background: #ff3f6c;
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        font-size: 16px;
+        transition: background 0.3s ease;
+    }
+
+    .music-section .btn:hover {
+        background: #e0355e;
+    }
+
+    /* Upcoming Shows Section */
+    .upcoming-shows {
+        padding: 50px 30px;
+        background: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1974&auto=format&fit=crop') no-repeat center center/cover;
+        position: relative;
+        text-align: center;
+    }
+
+    .upcoming-shows::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    .upcoming-shows h2 {
+        font-size: 36px;
+        font-weight: 600;
+        position: relative;
+        z-index: 2;
+    }
+</style>
+<body>
+    <!-- Header -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>MEOW</h1>
+        </div>
+        <ul class="nav-links">
+            <div class="li"><li><a onclick="chuyen_trangInfor()" href="#">Infor</a></li></div>
+            <div class="li"><li><a onclick="chuyen_trangHome()" href="#">Home</a></li></div>
+            <div class="li"><li><a onclick="chuyen_trangNhac()" href="#">Music</a></li></div>
+            <div class="li"><li><a onclick="chuyen_trangEvent()" href="#">Events</a></li></div>
+            <div class="li"><li><a onclick="chuyen_trangDash()" href="#">Dashboard</a></li></div>
+        </ul>
+        <div>
+            <a href="#" class="btn">Sign up</a>
+            <a href="#" class="btn">Login</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>The Soul of Music</h1>
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <a href="#" class="btn">Upcoming Event</a>
+        </div>
+    </section>
+
+    <!-- Latest Album Section -->
+    <section class="latest-album">
+        <div class="album-cover">
+            <img src="https://tse1.mm.bing.net/th?id=OIP.Zy_GL19DD_dJgVhllPwM4AHaHa&pid=Api&P=0&h=180" alt="Album Cover">
+        </div>
+        <div class="album-info">
+            <h2>Latest Album</h2>
+            <div class="play-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="stats">
+                <span>32,870</span>
+                <span>40,350</span>
+                <span>20,350</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-content">
+            <h2>A Few Words About ECSTASY</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in risus nec purus ultricies. Morbi in risus nec purus ultricies. Morbi in risus nec purus ultricies. Morbi in risus nec purus ultricies. Morbi in risus nec purus ultricies.</p>
+            <a href="#" class="btn">More About Band</a>
+        </div>
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1974&auto=format&fit=crop" alt="About Image">
+        </div>
+    </section>
+
+    <!-- Event List Section -->
+    <section class="event-list">
+        <h2>Event List</h2>
+        <div class="events">
+            <div class="event-card">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1974&auto=format&fit=crop" alt="Event 1">
+                <div class="date">Nov 19</div>
+                <h3>DJ Night Party</h3>
+                <p>Nov 19, 2023</p>
+            </div>
+            <div class="event-card">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1974&auto=format&fit=crop" alt="Event 2">
+                <div class="date">Nov 19</div>
+                <h3>The Mission</h3>
+                <p>Nov 19, 2023</p>
+            </div>
+            <div class="event-card">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1974&auto=format&fit=crop" alt="Event 3">
+                <div class="date">Nov 19</div>
+                <h3>Planet Ibiza</h3>
+                <p>Nov 19, 2023</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section class="music-section">
+        <h2>Music</h2>
+        <div class="genres">
+            <div class="genre-card">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1974&auto=format&fit=crop" alt="Hip Hop">
+                <h3>Hip Hop</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="genre-card">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1974&auto=format&fit=crop" alt="Rock">
+                <h3>Rock</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="genre-card">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1974&auto=format&fit=crop" alt="Classic">
+                <h3>Classic</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+        <a href="#" class="btn">Listen to Music</a>
+    </section>
+
+    <!-- Upcoming Shows Section -->
+    <section class="upcoming-shows">
+        <h2>Upcoming Shows</h2>
+    </section>
+
+    <script>
+        function chuyen_trangHome() {
+            window.location.assign("index.html");
+        }
+        function chuyen_trangInfor() {
+            window.location.assign("infor.html");
+        }
+        function chuyen_trangDash() {
+            window.location.assign("dashboard.html"); 
+        }
+        function chuyen_trangEvent() {
+            window.location.assign("event.html"); 
+        }
+        function chuyen_trangNhac() {
+            window.location.assign("song.html");
+        }
+    </script>
+</body>
+</html>

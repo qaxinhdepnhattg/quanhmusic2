@@ -203,6 +203,95 @@
         cursor: pointer;
     }
     
+    .custom-audio-player {
+    background-color: #2a2a2a;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.song-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.play-pause-btn {
+    background-color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.play-pause-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.current-time,
+.duration {
+    font-size: 14px;
+    color: #ccc;
+    min-width: 40px;
+    text-align: center;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background-color: #555;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background-color: #ccc;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.control-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.control-buttons button {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.control-buttons button:hover {
+    color: #fff;
+}
+
+#songAudio {
+    display: none; /* Hidden because we're using custom controls */
+}
+    
 </style>
 <body>
     <!-- Header -->
@@ -215,7 +304,7 @@
             <div class="li"><li><a onclick="chuyen_trangHome()" href="#">Home</a></li></div>
             <div class="li"><li><a onclick="chuyen_trangNhac()" href="#">Music</a></li></div>
             <div class="li"><li><a onclick="chuyen_trangEvent()" href="#">Events</a></li></div>
-            <div class="li"><li><a onclick="chuyen_trangEvent()" href="#">News</a></li></div>
+            <div class="li"><li><a onclick="chuyen_trangDash()" href="#">Dashboard</a></li></div>
         </ul>
         <div>
             <a href="#" class="btn">Sign up</a>
@@ -240,14 +329,31 @@
         </div>
 
         <!-- Playlist -->
-        <div class="playlist">
-            <div class="playlist-item">
-                <div id="song"><h3>----</h3></div>
-                <div id="author"><p>----</p></div>
-                <audio id="songAudio" controls></audio>
+       <!-- Playlist -->
+<div class="playlist">
+    <div class="playlist-item">
+        <div id="song"><h3></h3></div>
+        <div id="author"><p>----</p></div>
+        <div class="custom-audio-player">
+            <div class="song-title" id="songTitle">----</div>
+            <div class="audio-controls">
+                <button class="play-pause-btn">▶</button>
+                <span class="current-time">0:00</span>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                <span class="duration">0:00</span>
+                <div class="control-buttons">
+                    <button class="rewind-btn">⏪</button>
+                    <button class="forward-btn">⏩</button>
+                    <button class="volume-btn">🔊</button>
+                    <button class="more-btn">⋮</button>
+                </div>
             </div>
+            <audio id="songAudio"></audio>
         </div>
     </div>
+</div>
 
     <!-- Footer Player -->
     <div class="footer">
@@ -257,97 +363,173 @@
 
     <script>
         function chuyen_trangHome() {
-            window.location.assign("in.html");
-        }
-        function chuyen_trangInfor() {
-            window.location.assign("infor.html");
-        }
-        function chuyen_trangNhac() {
-            window.location.assign("nhac.html");
-        }
-        function chuyen_trangEvent() {
-            window.location.assign("event.html"); // Giả sử có trang event.html
-        }
-        function chuyen_trangDangki(){
-	window.location.assign("signup.html")
+    window.location.assign("index.html");
 }
-function chuyen_trangDangnhap(){
-	window.location.assign("login.html")
+function chuyen_trangInfor() {
+    window.location.assign("infor.html");
+}
+function chuyen_trangDash() {
+    window.location.assign("dashboard.html"); 
+}
+function chuyen_trangEvent() {
+    window.location.assign("event.html"); 
+}
+function chuyen_trangDangki() {
+    window.location.assign("signup.html");
+}
+function chuyen_trangDangnhap() {
+    window.location.assign("login.html");
 }
 
-        // Get URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const title = decodeURIComponent(urlParams.get('title') || 'Unknown Title');
-        const artist = decodeURIComponent(urlParams.get('artist') || 'Unknown Artist');
-        const image = decodeURIComponent(urlParams.get('image') || 'https://via.placeholder.com/250');
-        const audioUrl = decodeURIComponent(urlParams.get('audio') || '');
+// Get URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+const title = decodeURIComponent(urlParams.get('title') || 'Unknown Title');
+const artist = decodeURIComponent(urlParams.get('artist') || 'Unknown Artist');
+const image = decodeURIComponent(urlParams.get('image') || 'https://via.placeholder.com/250');
+const audioUrl = decodeURIComponent(urlParams.get('audio') || '');
 
-        // Update the page with song details
-        document.getElementById('albumImage').src = image;
-        document.getElementById('songName').innerHTML = `<h2>${title}</h2>`;
-        document.getElementById('author').innerHTML = `<p>Created by ${artist}</p>`;
-        document.getElementById('song').innerHTML = `<h3>${title}</h3>`;
-        document.getElementById('nowPlaying').textContent = `Now Playing: ${title} by ${artist}`;
+// Update the page with song details
+document.getElementById('albumImage').src = image;
+document.getElementById('songName').innerHTML = `<h2>${title}</h2>`;
+document.getElementById('author').innerHTML = `<p>Created by ${artist}</p>`;
+document.getElementById('song').innerHTML = `<h3>${title}</h3>`;
+document.getElementById('songTitle').textContent = title; // Update custom player song title
+document.getElementById('nowPlaying').textContent = `Now Playing: ${title} by ${artist}`;
 
-        // Set up audio element in playlist-item
-        const audioElement = document.getElementById('songAudio');
-        if (audioUrl) {
-            audioElement.src = audioUrl;
-        } else {
-            audioElement.style.display = 'none'; // Ẩn audio nếu không có URL
-        }
+// Set up audio element and custom player elements
+const audioElement = document.getElementById('songAudio');
+const playPauseBtn = document.querySelector('.play-pause-btn');
+const progressBar = document.querySelector('.progress');
+const currentTime = document.querySelector('.current-time');
+const duration = document.querySelector('.duration');
+const rewindBtn = document.querySelector('.rewind-btn');
+const forwardBtn = document.querySelector('.forward-btn');
+let isPlaying = false;
 
-        // Play button functionality
-        const playButton = document.getElementById('playButton');
-        let isPlaying = false;
-        playButton.addEventListener('click', () => {
-            if (!audioUrl) {
-                alert('No audio source provided for this song!');
-                return;
-            }
-            if (isPlaying) {
-                audioElement.pause();
-                playButton.textContent = 'Play';
-                isPlaying = false;
-            } else {
-                audioElement.play();
-                playButton.textContent = 'Pause';
-                isPlaying = true;
-            }
-        });
+// Set audio source
+if (audioUrl) {
+    audioElement.src = audioUrl;
+} else {
+    document.querySelector('.custom-audio-player').style.display = 'none'; // Hide player if no URL
+}
 
-        // Optional: Play button on album cover
-        document.querySelector('.play-btn').addEventListener('click', () => {
-            if (!audioUrl) {
-                alert('No audio source provided for this song!');
-                return;
-            }
-            if (isPlaying) {
-                audioElement.pause();
-                playButton.textContent = 'Play';
-                isPlaying = false;
-            } else {
-                audioElement.play();
-                playButton.textContent = 'Pause';
-                isPlaying = true;
-            }
-        });
-        //
+// Update duration when audio metadata is loaded
+audioElement.addEventListener('loadedmetadata', () => {
+    duration.textContent = formatTime(audioElement.duration);
+});
 
-        function togglePlay() {
-    const playButton = document.querySelector('.play-btn');
-    const isPlaying = playButton.classList.contains('playing');
-    
-    if (isPlaying) {
-        
-        playButton.classList.remove('playing');
-        
-    } else {
-        
-        playButton.classList.add('playing');
-        
+// Update progress bar and current time as audio plays
+audioElement.addEventListener('timeupdate', () => {
+    const progressPercent = (audioElement.currentTime / audioElement.duration) * 100;
+    progressBar.style.width = `${progressPercent}%`;
+    currentTime.textContent = formatTime(audioElement.currentTime);
+});
+
+// Play/Pause functionality for the custom play button
+playPauseBtn.addEventListener('click', () => {
+    if (!audioUrl) {
+        alert('No audio source provided for this song!');
+        return;
     }
+    if (isPlaying) {
+        audioElement.pause();
+        playPauseBtn.textContent = '▶'; // Play symbol
+        isPlaying = false;
+    } else {
+        audioElement.play();
+        playPauseBtn.textContent = '⏸'; // Pause symbol
+        isPlaying = true;
+    }
+    // Sync with the footer play button and album cover
+    const playButton = document.getElementById('playButton');
+    playButton.textContent = isPlaying ? 'Pause' : 'Play';
+    const playBtn = document.querySelector('.play-btn');
+    playBtn.classList.toggle('playing', isPlaying);
+});
+
+// Rewind and Forward functionality
+rewindBtn.addEventListener('click', () => {
+    audioElement.currentTime = Math.max(0, audioElement.currentTime - 10); // Rewind 10 seconds
+});
+
+forwardBtn.addEventListener('click', () => {
+    audioElement.currentTime = Math.min(audioElement.duration, audioElement.currentTime + 10); // Forward 10 seconds
+});
+
+// Footer play button functionality
+const playButton = document.getElementById('playButton');
+playButton.addEventListener('click', () => {
+    if (!audioUrl) {
+        alert('No audio source provided for this song!');
+        return;
+    }
+    if (isPlaying) {
+        audioElement.pause();
+        playButton.textContent = 'Play';
+        playPauseBtn.textContent = '▶'; // Sync with custom player
+        isPlaying = false;
+    } else {
+        audioElement.play();
+        playButton.textContent = 'Pause';
+        playPauseBtn.textContent = '⏸'; // Sync with custom player
+        isPlaying = true;
+    }
+    // Sync with the album cover play button
+    const playBtn = document.querySelector('.play-btn');
+    playBtn.classList.toggle('playing', isPlaying);
+});
+
+// Play button on album cover
+document.querySelector('.play-btn').addEventListener('click', () => {
+    if (!audioUrl) {
+        alert('No audio source provided for this song!');
+        return;
+    }
+    if (isPlaying) {
+        audioElement.pause();
+        playPauseBtn.textContent = '▶'; // Sync with custom player
+        isPlaying = false;
+    } else {
+        audioElement.play();
+        playPauseBtn.textContent = '⏸'; // Sync with custom player
+        isPlaying = true;
+    }
+    // Sync with the footer play button
+    playButton.textContent = isPlaying ? 'Pause' : 'Play';
+    // Call togglePlay to update the album cover button state
+    togglePlay();
+});
+
+// Toggle play function for the album cover button
+function togglePlay() {
+    const playButton = document.querySelector('.play-btn');
+    if (!audioUrl) {
+        alert('No audio source provided for this song!');
+        return;
+    }
+    if (isPlaying) {
+        audioElement.pause();
+        playPauseBtn.textContent = '▶'; // Sync with custom player
+        playButton.classList.remove('playing');
+        isPlaying = false;
+    } else {
+        audioElement.play();
+        playPauseBtn.textContent = '⏸'; // Sync with custom player
+        playButton.classList.add('playing');
+        isPlaying = true;
+    }
+    // Sync with the footer play button
+    const footerPlayButton = document.getElementById('playButton');
+    footerPlayButton.textContent = isPlaying ? 'Pause' : 'Play';
 }
+
+// Helper function to format time
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
     </script>
 </body>
 </html>

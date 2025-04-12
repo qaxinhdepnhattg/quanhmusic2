@@ -16,33 +16,86 @@
 }
 
 body {
-    background-color: #1a1a1a;
-    color: #fff;
-}
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            color: white;
+            background-color: black;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: brightness(50%);
+            z-index: -1;
+        }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    background-color: rgba(0, 0, 0, 0.8);
-}
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background: url('https://i.pinimg.com/736x/61/ea/66/61ea66ea488792a1b6a0afc4349b9154.jpg') no-repeat center center/cover;
+            height: 100px;
+            color: white;
+        }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
+        .navbar::before {
+            content: "";
+            position: absolute;
+            padding: 20px 50px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.6);
+        }
 
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 16px;
-}
+        .navbar * {
+            position: relative;
+            z-index: 2;
+        }
 
-.nav-links a:hover {
-    color: #f5c518;
-}
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            font-size: larger;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 15px;
+        }
+
+        .li {
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .li:hover {
+            width: fit-content;
+            background: #ff3f6c;
+            border-radius: 20px;
+        }
 
 .auth-buttons button {
     padding: 8px 20px;
@@ -204,24 +257,59 @@ h2 {
     background-color: #ccc;
     color: #000;
 }
+.li {
+        align-items: center;
+        padding: 10px 15px;
+    }
+    .li:hover {
+        height: fit-content;
+        background: #ff3f6c;
+        border-radius: 20px;
+    }
+    .hero-section {
+        margin-top: 100px;
+    }
+    .hero-section h1 {
+        font-size: 50px;
+        font-weight: 600;
+    }
+    .hero-section p {
+        font-size: 18px;
+        max-width: 600px;
+        margin: 10px auto;
+        opacity: 0.8;
+    }
+    .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 24px;
+        background: #ff3f6c;
+        color: white;
+        font-size: 16px;
+        text-decoration: none;
+        border-radius: 30px;
+    }
+
 </style>
 <body>
     <!-- Navigation Bar -->
-    <nav>
-        <div class="logo">MEOW</div>
-        <div class="nav-links">
-            <a href="infor.html">INFO</a>
-            <a href="in.html">HOME</a>
-            <a href="song.html">MUSIC</a>
-            <a href="#">EVENTS</a>
-            <a href="#">NEWS</a>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>MEOW</h1>
         </div>
+        <ul class="nav-links">
+            <div class="li"><li><a onclick="chuyen_trangInfor()" href="#">Infor</a></li></div> 
+            <div class="li"><li><a onclick="chuyen_trangHome()" href="#">Home</a></li></div> 
+            <div class="li"><li><a onclick="chuyen_trangNhac()" href="#">Music</a></li></div> 
+            <div class="li"><li><a onclick="chuyen_trangEvent()" href="#">Events</a></li></div>  
+            <div class="li"><li><a onclick="chuyen_trangDash()" href="#">Dashboard</a></li></div>  
+        </ul>
         <div class="auth-buttons">
-            <button onclick="chuyen_trangDangki()">Sign up</button>
-            <button onclick="chuyen_trangDangnhap()">Login</button>
+            <a href="#" class="btn">Sign up</a>
+            <a href="#" class="btn">Login</a>
+            <i class="fas fa-bars hamburger"></i>
         </div>
     </nav>
-
     <!-- Main Content -->
     <main>
         <!-- Search Bar -->
@@ -268,24 +356,20 @@ h2 {
 
 // Navigation functions
 function chuyen_trangHome() {
-    window.location.assign("in.html");
-}
-
-function chuyen_trangInfor() {
-    window.location.assign("infor.html");
-}
-
-function chuyen_trangNhac() {
-    window.location.assign("song.html");
-}
-
-function chuyen_trangDangki() {
-    window.location.assign("signup.html");
-}
-
-function chuyen_trangDangnhap() {
-    window.location.assign("login.html");
-}
+            window.location.assign("index.html");
+        }
+        function chuyen_trangInfor() {
+            window.location.assign("infor.html");
+        }
+        function chuyen_trangDash() {
+            window.location.assign("dashboard.html"); 
+        }
+        function chuyen_trangEvent() {
+            window.location.assign("event.html"); 
+        }
+        function chuyen_trangNhac() {
+            window.location.assign("song.html");
+        }
 
 // Get elements
 const songsGrid = document.getElementById('songsGrid');
